@@ -9,6 +9,7 @@
   <script type="text/babel">
     function App() {
       const [amount, setAmount] = React.useState(0);
+
       const [flipped, setFlipped] = React.useState(false);
       const onChange = (event) => {
         setAmount(event.target.value);
@@ -46,7 +47,7 @@
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
+          <button onClick={onFlip}>{flipped ? "Turn back" : "Invert"}</button>
         </div>
       );
     }
