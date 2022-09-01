@@ -3,39 +3,38 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn({ text, onClick }) {
-      console.log(text, "was rendered");
+    //fontSize = 16 : 디폴트 값, 정의되지 않은 변수에 관한 기본값을 준다.
+    function Btn({ text, fontSize = 16 }) {
       return (
         <button
-          onClick={onClick}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: 16,
+            fontSize: fontSize,
           }}
         >
           {text}
         </button>
       );
     }
-    const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+      //isRequired: <Btn text="Continue">처럼 한개만 전달해도 문제는 안됨(PropTypes.number), 하지만 확실하게 하고 싶다면 isRequired를 쓰면 된다.
+    };
     function App() {
-      const [value, setValue] = React.useState("Save Changes");
-      const changeValue = () => setValue("Revert Changes");
-      //Btn의 onClick은 실제 HTML의 태그에 들어가는 것이 아닌 props!!
-      //두번째 Btn은 re-render 되지 않아도 된다 (React Memo)
-      //==props가 변경되지 않는다면 다시 그릴 필요가 없다는것을 보여줌
       return (
         <div>
-          <MemorizedBtn text={value} onClick={changeValue} />
-          <MemorizedBtn text="Continue" />
+          <Btn text="Save Changes" fontSize={16} />
+          <Btn text="Continue" />
         </div>
       );
     }
