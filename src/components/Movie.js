@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 //<a> 태그는 브라우저 새로고침이 되기 때문에 Link를 사용하는 것이 좋다 !
 //a href="" ==> Link to=""
 
-function Movie({ coverImg, title, summary, genres }) {
+function Movie({ id, coverImg, title, summary, genres }) {
   return (
     <div>
       <img src={coverImg} alt={title} />
       <h2>
-        <Link to="/movie">{title}</Link>
+        <Link to={`/movie/${id}`}>{title}</Link>
       </h2>
       <p>{summary}</p>
       <ul>
@@ -23,6 +23,7 @@ function Movie({ coverImg, title, summary, genres }) {
 }
 
 Movie.propTypes = {
+  id: PropTypes.number.isRequired,
   coverImg: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
